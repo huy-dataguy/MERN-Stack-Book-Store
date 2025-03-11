@@ -9,7 +9,7 @@ import { useState } from "react";
 
 
 
-function Navbar() {
+const Navbar = () => {
   const navigation = [
     {name: "Dashboard", href:"/dashboard"},
     {name: "Orders", href:"/orders"},
