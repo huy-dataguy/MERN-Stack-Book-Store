@@ -1,12 +1,27 @@
 import { TiShoppingCart } from "react-icons/ti";
-import { HiMiniBars3CenterLeft, HiSparkles } from "react-icons/hi2";
+import { HiMiniBars3CenterLeft, HiMiniFaceSmile, HiSparkles } from "react-icons/hi2";
 import { HiUserCircle } from "react-icons/hi2";
 import { HiOutlineHeart } from "react-icons/hi2";
 import { IoIosSearch } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import avatarImage from "../assets/avatar.png"
+import { useState } from "react";
+
+
+
 function Navbar() {
+  const navigation = [
+    {name: "Dashboard", href:"/dashboard"},
+    {name: "Orders", href:"/orders"},
+    {name: "Cart Page", href:"/cart"},
+    {name: "Check Out", href:"/checkout"},
+  
+  ]
+
   const currentUser = true;
+  const [isDropDownOpen, setIsDropDownOpen] = useState(false)
+  console.log(isDropDownOpen)
+
   return (
     <header className='max-w-screen-2xl mx-auto px-4 py-6'>
       <nav className='flex justify-between items-center'>
@@ -28,14 +43,37 @@ function Navbar() {
         </div>
 
         {/* right side */}
+              {/* relative position, Allows "elements" to have absolute adjustment bases on it  */}
         <div className=" relative flex items-center md:space-x-3 space-x-2">
 
           <div>
             {
               currentUser ? <>
-              <button>
-                <img src={avatarImage} alt="" className="size-7 rounded-full "></img>
-              </button>
+                <button onClick={() => setIsDropDownOpen(!isDropDownOpen)}>
+                  <img src={avatarImage} alt="" className="size-7 rounded-full "></img>
+                </button>
+
+                {/* show dropdown  */}
+                {
+                  isDropDownOpen && (
+                                 // absolute: It places the element in absolute position in relation to its relative parent element.
+                    <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md z-40">
+                      <ul>
+                        {
+                          navigation.map((item) => (
+                            <li key={item.name} onClick={() =>
+                              setIsDropDownOpen(false)}>
+                              <Link to={item.href} className="block
+                              px-4 py-2 text-sm hover:bg-gray-200">
+                                {item.name}
+                              </Link>
+                            </li>
+                          ))
+                        }
+                      </ul>
+                    </div>
+                  )
+                }
               </> : <Link to="/login">
                 <HiUserCircle className="size-6" />
               </Link>
@@ -50,9 +88,6 @@ function Navbar() {
             <TiShoppingCart className="size-6" />
             <span>0</span>
           </Link>
-
-
-
         </div>
       </nav>
     </header>
