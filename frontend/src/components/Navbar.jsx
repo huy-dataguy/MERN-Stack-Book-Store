@@ -18,7 +18,7 @@ const Navbar = () => {
   
   ]
 
-  const currentUser = true;
+  const currentUser = false;
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
   console.log(isDropDownOpen)
 
