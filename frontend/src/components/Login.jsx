@@ -1,22 +1,37 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FcGoogle } from "react-icons/fc";
+import {useForm } from 'react-hook-form'
 
 const Login = () => {
   const [message, setMessage] = useState("")
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+  const onSubmit = (data) => console.log(data)
+
+  const handleGoogleSignIn = () =>
+  {
+    
+  }
   return (
     <div className='h-[calc(100vh-120px)] border flex justify-center items-center'>
       <div className='w-full max-w-sm mx-auto bg-white shadow-md px-8 pt-6 pb-8 mb-4'>
         <h2 className='text-xl font-semibold mb-4'>Please Login</h2>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className='mb-4'>
             <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor='email'>
               Email
             </label>
 
-            <input type='email' name='email' id='email' placeholder='Email Address'
+            <input 
+            {...register("email", { required: true })} 
+            type='email' name='email' id='email' placeholder='Email Address'
               className='shawdow appearance-none border rounded w-full py-2 px-3
-            leading-tight focus:outline-none focus:shadown'></input>
+            leading-tight focus:outline-none focus:shadow'></input>
           </div>
 
           <div className='mb-4'>
@@ -24,9 +39,11 @@ const Login = () => {
               Password
             </label>
 
-            <input type='password' name='pasword' id='password' placeholder='Password'
+            <input
+            {...register("password", { required: true })} 
+            type='password' name='password' id='password' placeholder='Password'
               className='shawdow appearance-none border rounded w-full py-2 px-3
-            leading-tight focus:outline-none focus:shadown'></input>
+            leading-tight focus:outline-none focus:shadow'></input>
           </div>
 
           {
@@ -43,7 +60,9 @@ const Login = () => {
 
         {/* Google sign in */}
         <div className='mt-4'>
-          <button className=' flex w-full flex-wrap gap-1 items-center justify-center
+          <button 
+          onClick={handleGoogleSignIn}
+          className=' flex w-full flex-wrap gap-1 items-center justify-center
             bg-secondary hover:bg-blue-700 text-white font-bold py-2 rounded
             focus:outline-none'>
             <FcGoogle className='mr-2'/>
