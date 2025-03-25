@@ -6,10 +6,15 @@ import { IoIosSearch } from "react-icons/io";
 import { Link } from 'react-router-dom';
 import avatarImage from "../assets/avatar.png"
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 
 
 const Navbar = () => {
+
+  const cartItems = useSelector(state => state.cart.cartItems)
+  console.log(cartItems)
+
   const navigation = [
     {name: "Dashboard", href:"/dashboard"},
     {name: "Orders", href:"/orders"},
@@ -86,7 +91,10 @@ const Navbar = () => {
 
           <Link to="/cart" className="bg-primary p-1 sm:px-6 px-2 flex items-center rounded-md">
             <TiShoppingCart className="size-6" />
-            <span>0</span>
+            {
+              cartItems.length > 0 ? <span>{cartItems.length}</span> : <span>0</span>
+            }
+            
           </Link>
         </div>
       </nav>
