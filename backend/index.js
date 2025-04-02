@@ -2,7 +2,22 @@ const express = require('express')
 const mongoose = require('mongoose');
 require('dotenv').config()
 
+const cors = require('cors')
 const app = express()
+
+
+//middleware
+app.use(express.json())
+
+app.use(cors({
+    origin: ["http://localhost:5173"],
+    credentials: true
+}))
+
+//routes
+const bookRoute = require("./src/books/book.route")
+app.use("/api/books", bookRoute)
+
 const port = process.env.PORT || 3000
 
 
