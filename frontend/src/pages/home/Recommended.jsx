@@ -7,14 +7,21 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
+import { useFectchAllBooksQuery } from '../../redux/features/cart/bookApi';
 const Recommended = () => {
-    const [books, setBooks] = useState([]);
 
-    useEffect(() => {
-        fetch("books.json")
-            .then(res => res.json())
-            .then((data) => setBooks(data))
-    }, [])
+    //test in frontend, before have backend api:
+    // const [books, setBooks] = useState([]);
+
+    // useEffect(() => {
+    //     fetch("books.json")
+    //         .then(res => res.json())
+    //         .then((data) => setBooks(data))
+    // }, [])
+
+    //after have backend api:
+    const { data: books = [] } = useFectchAllBooksQuery()
+    
 
     return (
         <div className='py-10'>
