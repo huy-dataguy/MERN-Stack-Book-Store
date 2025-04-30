@@ -1,23 +1,47 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FcGoogle } from "react-icons/fc";
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
   const [message, setMessage] = useState("")
 
-  const {
-      register,
-      handleSubmit,
-      watch,
-      formState: { errors },
-    } = useForm()
-    const onSubmit = (data) => console.log(data)
+  const { registerUser, signInWithGoogle, logoutUser } = useAuth()
+  const navigate = useNavigate()
 
-    const handleGoogleSignIn = () =>
-      {
-        
-      }
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
+
+  //register function to create a new user
+  const onSubmit = async (data) => {
+    console.log(data)
+    try {
+      await registerUser(data.email, data.password);
+      alert("User created successfully")
+      await logoutUser()
+      navigate("/login")
+    }
+    catch (error) {
+      setMessage("Please provide a valid email and password")
+      console.log(error.message)
+    }
+  }
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithGoogle()
+      alert("Login successful")
+      navigate("/")
+    }
+    catch (error) {
+      console.log(error)
+      setMessage("Login failed")
+    }
+  }
   return (
     <div className='h-[calc(100vh-120px)] border flex justify-center items-center'>
       <div className='w-full max-w-sm mx-auto bg-white shadow-md px-8 pt-6 pb-8 mb-4'>
@@ -28,9 +52,9 @@ const Register = () => {
               Email
             </label>
 
-            <input 
-            {...register("email", { required: true })} 
-            type='email' name='email' id='email' placeholder='Email Address'
+            <input
+              {...register("email", { required: true })}
+              type='email' name='email' id='email' placeholder='Email Address'
               className='shawdow appearance-none border rounded w-full py-2 px-3
             leading-tight focus:outline-none focus:shadown'></input>
           </div>
@@ -40,9 +64,9 @@ const Register = () => {
               Password
             </label>
 
-            <input 
-            {...register("password", { required: true })} 
-            type='password' name='password' id='password' placeholder='Password'
+            <input
+              {...register("password", { required: true })}
+              type='password' name='password' id='password' placeholder='Password'
               className='shawdow appearance-none border rounded w-full py-2 px-3
             leading-tight focus:outline-none focus:shadown'></input>
           </div>
@@ -55,25 +79,25 @@ const Register = () => {
             <button className='bg-blue-500 hover:bg-blue-700 text-white px-6 font-semibold
             rounded focus:outline-none'> Register </button>
           </div>
-          
+
         </form>
         <p className='align-baseline font-medium mt-4 text-sm '>Have an account? Please
           <Link to="/login" className='text-blue-500 hover:text-blue-700'> Login</Link> </p>
 
         {/* Google sign in */}
         <div className='mt-4'>
-          <button 
-          onClick={handleGoogleSignIn}
-          className=' flex w-full flex-wrap gap-1 items-center justify-center
+          <button
+            onClick={handleGoogleSignIn}
+            className=' flex w-full flex-wrap gap-1 items-center justify-center
             bg-secondary hover:bg-blue-700 text-white font-bold py-2 rounded
             focus:outline-none'>
-            <FcGoogle className='mr-2'/>
+            <FcGoogle className='mr-2' />
             Sign in with google
           </button>
         </div>
 
         <p className='mt-5 text-center text-gray-500 text-xs'>©2025 Book Store. All rights reserved.</p>
-        </div>
+      </div>
     </div>
   )
 }
