@@ -7,7 +7,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 // import required modules
 import { Pagination, Navigation } from 'swiper/modules';
-import { useFectchAllBooksQuery } from '../../redux/features/cart/bookApi';
+import { useFectchAllBooksQuery } from '../../redux/features/books/booksApi';
 
 const categories = ["Choose a genre", "Business", "Fiction", "Horror", "Advanture"]
 const TopSellers = () => {
