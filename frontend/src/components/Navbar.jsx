@@ -14,7 +14,6 @@ import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
 
   const cartItems = useSelector(state => state.cart.cartItems)
-  console.log(cartItems)
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard" },
@@ -24,8 +23,6 @@ const Navbar = () => {
   ]
 
   const { currentUser, logoutUser } = useAuth()
-
-  console.log(currentUser)
 
   const handleLogout = async () => {
     try {
@@ -38,7 +35,6 @@ const Navbar = () => {
   }
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
-  console.log(isDropDownOpen)
 
   return (
     <header className='max-w-screen-2xl mx-auto px-4 py-6'>

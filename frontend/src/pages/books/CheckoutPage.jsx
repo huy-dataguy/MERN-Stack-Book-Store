@@ -4,19 +4,29 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.config';
 import { useAuth } from '../../context/AuthContext';
-
+import { useCreateOrderMutation } from '../../redux/features/orders/ordersApi';
+import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
 const CheckoutPage = () => {
 
-  const {currentUser} = useAuth()
+  const [createOrder, { isLoading, error }] = useCreateOrderMutation()
+  const navigate = useNavigate()
+  const { currentUser } = useAuth()
   const [isChecked, setIsChecked] = useState(false);
+
+  const cartItems = useSelector(state => state.cart.cartItems)
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2)
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data) => {
-    console.log(data)
+
+
+
+  const onSubmit = async (data) => {
     const newOrder = {
       name: data.name,
       email: currentUser?.email,
@@ -31,12 +41,32 @@ const CheckoutPage = () => {
       productIds: cartItems.map(item => item?._id),
       totalPrice: totalPrice,
     }
-    console.log(newOrder)
+
+    try {
+      await createOrder(newOrder).unwrap()
+
+      Swal.fire({
+        title: "Confirmed Order",
+        text: "Your order placed successfully!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, It's Okay!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/orders");
+        }
+      });
+      
+    }
+    catch (err) {
+      console.error("Error place an order", err)
+      alert("Fail place an order")
+    }
   }
 
-
-  const cartItems = useSelector(state => state.cart.cartItems)
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2)
+  if (isLoading) return <div>Loading...</div>
   return (
     <section>
       <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">
