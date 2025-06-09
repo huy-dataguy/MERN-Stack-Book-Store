@@ -8,6 +8,15 @@ import CheckoutPage from "../pages/books/CheckoutPage";
 import SingleBook from "../pages/books/SingleBook";
 import PrivateRoute from "./PrivateRoute";
 import OrderPage from "../pages/books/OrderPage";
+import AdminLogin from "../components/AdminLogin";
+import AdminRoute from "./AdminRoute";
+import DashboardLayout from "../pages/dashboard/DashboardLayout";
+import Dashboard from "../pages/dashboard/Dashboard";
+import AddBook from "../pages/dashboard/addBook/AddBook";
+import UpdateBook from "../pages/dashboard/EditBook/UpdateBook";
+import ManageBooks from "../pages/dashboard/manageBooks/ManageBooks";
+import UserDashboard from "../pages/dashboard/users/UserDashboard";
+
 const router = createBrowserRouter([
     {
       path: "/",
@@ -27,7 +36,7 @@ const router = createBrowserRouter([
         },
         {
           path: "/orders",
-          element: <PrivateRoute> <OrderPage/></PrivateRoute>
+          element: <OrderPage/>
         },
         { path: "/login",
           element: <Login/>
@@ -47,9 +56,45 @@ const router = createBrowserRouter([
         {
           path: "/books/:id",
           element: <SingleBook/> 
+        },
+        {
+          path: "/user-dashboard",
+          element: <PrivateRoute><UserDashboard/></PrivateRoute>
         }
       ]
     },
+      {
+        path: "/admin",
+        element: <AdminLogin/>
+      },
+      {
+        path: "/dashboard",
+        element: <AdminRoute><DashboardLayout/></AdminRoute>,
+        children:[
+          {
+            path: "",
+            element: <AdminRoute><Dashboard/></AdminRoute>
+          },
+          {
+            path: "add-new-book",
+            element: <AdminRoute>
+              <AddBook/>
+            </AdminRoute>
+          },
+          {
+            path: "edit-book/:id",
+            element: <AdminRoute>
+              <UpdateBook/>
+            </AdminRoute>
+          },
+          {
+            path: "manage-books",
+            element: <AdminRoute>
+              <ManageBooks/>
+            </AdminRoute>
+          }
+        ]
+      }
   ]);
   
 export default router;

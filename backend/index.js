@@ -16,10 +16,12 @@ app.use(cors({
 
 //routes
 const bookRoute = require("./src/books/book.route")
-app.use("/api/books", bookRoute)
-
 const orderRoute = require('./src/orders/order.route')
+const userRoute = require('./src/users/user.route') 
+
+app.use("/api/books", bookRoute)
 app.use("/api/orders", orderRoute)
+app.use("/api/auth", userRoute)
 
 const port = process.env.PORT || 3000
 
