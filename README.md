@@ -54,6 +54,15 @@ Follow these steps to run the project locally.
         VITE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
         VITE_APP_ID=your_firebase_app_id
         ```
+    - Open the file: /src/utils/getBaseURL.js
+       ```bash
+       const getBaseUrl = () => {
+        return 'http://localhost:3000';
+        // return 'https://book-store-eight-black.vercel.app';
+       }
+       export default getBaseUrl;
+       ```
+      - Comment out the production URL and uncomment the local development URL:
         
 3. **Backend Setup**
     
