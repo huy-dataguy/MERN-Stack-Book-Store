@@ -1,4 +1,4 @@
 const getBaseUrl = () => {
-    return 'http://localhost:3000';
+    return 'https://book-store-three-gilt.vercel.app';
 }
 export default getBaseUrl;
