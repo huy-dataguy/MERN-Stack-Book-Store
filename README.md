@@ -27,7 +27,7 @@ Follow these steps to run the project locally.
 1. **Clone the Repository**
     
     ```bash
-    git clone [https://github.com/huy-dataguy/MERN-Stack-Book-Store.git](https://github.com/huy-dataguy/MERN-Stack-Book-Store.git)
+    git clone https://github.com/huy-dataguy/MERN-Stack-Book-Store.git
     cd MERN-Stack-Book-Store
     ```
     
