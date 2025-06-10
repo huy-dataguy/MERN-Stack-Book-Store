@@ -1,6 +1,6 @@
 ## I. Overview
 
-The **Book Store** is a full-stack MERN e-commerce platform for browsing, purchasing, and managing books. It features a responsive frontend, a robust backend with MongoDB, and a secure admin dashboard for inventory management.
+The **MERN Stack Book Store** is a full-stack MERN e-commerce platform for browsing, purchasing, and managing books. It features a responsive frontend, a robust backend with MongoDB, and a secure admin dashboard for inventory management.
 
 > _This project was built as part of my learning journey from the [FreeCodeCamp MERN Bookstore tutorial](https://youtu.be/pgw2KPfgK1E?si=AaViTiJXjJ0OVJa9), with the goal of strengthening my fullstack development skills alongside my data engineering background._
 
@@ -27,8 +27,8 @@ Follow these steps to run the project locally.
 1. **Clone the Repository**
     
     ```bash
-    git clone https://github.com/huy-dataguy/Book-Store.git
-    cd Book-Store
+    git clone [https://github.com/huy-dataguy/MERN-Stack-Book-Store.git](https://github.com/huy-dataguy/MERN-Stack-Book-Store.git)
+    cd MERN-Stack-Book-Store
     ```
     
 2. **Frontend Setup**
